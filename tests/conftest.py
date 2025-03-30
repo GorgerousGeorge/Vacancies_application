@@ -1,6 +1,7 @@
 import pytest
 from unittest.mock import patch, Mock
 from src.vacancies import Vacancy
+from src.filehandler import JSONFileHandler
 
 
 @pytest.fixture
@@ -11,17 +12,17 @@ def mock_session():
 
 @pytest.fixture
 def vacancy1():
-    return Vacancy('Python Developer', 'Pupa Company', 100000, "некорректная ссылка")
+    return Vacancy(1,'Python Developer', 'Pupa Company', 100000, "некорректная ссылка")
 
 
 @pytest.fixture
 def vacancy2():
-    return Vacancy('Senior Python Developer', 'Lupa Enterprise', -200000, "http://example.com")
+    return Vacancy(2,'Senior Python Developer', 'Lupa Enterprise', -200000, "http://example.com")
 
 
 @pytest.fixture
 def vacancy3():
-    return Vacancy('SRE engineer', 200000, 200000, "http://example.com")
+    return Vacancy(3,'SRE engineer', 200000, 200000, "http://example.com")
 
 
 @pytest.fixture
@@ -31,4 +32,10 @@ def vacancy4():
 
 @pytest.fixture
 def vacancy5():
-    return Vacancy('Data Analyst', 'Tralyalya Incorporated', 150000, "http://example.com")
+    return Vacancy(5,'Data Analyst', 'Tralyalya Incorporated', 150000, "http://example.com")
+
+
+@pytest.fixture
+def json_file_handler(tmpdir):
+    handler = JSONFileHandler(filename=str(tmpdir.join("test_vacancies.json")))
+    return handler
