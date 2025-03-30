@@ -9,7 +9,7 @@ class JobAPI(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_vacancies(self, keyword: str):
+    def get_vacancies(self, keyword: str, cantidad: int):
         """Метод для получения вакансий по ключевому слову"""
         pass
 
@@ -45,7 +45,8 @@ class hh_API(JobAPI):
                 'name': vacancy['name'],
                 'company': vacancy['employer']['name'],
                 'url': vacancy['alternate_url'],
-                'salary': vacancy.get('salary')
+                'salary': vacancy.get('salary'),
+                'id': vacancy.get('id')
             }
             for vacancy in vacancies
         ]
@@ -56,7 +57,17 @@ if __name__ == "__main__":
     try:
         vacancies = hh_api.get_vacancies("Python", 10)
         for vacancy in vacancies:
-            print(f"Название вакансии: {vacancy['name']}, Работодатель: {vacancy['company']} Ссылка: {vacancy['url']}, "
-                  f"Зарплата: {vacancy['salary']}")
+            salary = vacancy['salary']
+            if salary and salary['from'] is not None and salary['to'] is not None:
+                average_salary = salary['from'] + (salary['to'] - salary['from']) / 2
+            elif salary and salary['from'] is not None:
+                average_salary = salary['from']
+            elif salary and salary['to'] is not None:
+                average_salary = salary['to']
+            else:
+                average_salary = 0
+
+            print(f"Название вакансии: {vacancy['name']}, Работодатель: {vacancy['company']}, "
+                  f"Ссылка: {vacancy['url']}, Средняя зарплата: {average_salary}, id: {vacancy['id']}")
     except Exception as e:
         print(f"Произошла ошибка: {e}")

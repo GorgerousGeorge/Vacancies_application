@@ -20,7 +20,7 @@ class FileHandler(ABC):
         pass
 
 
-class (FileHandler):
+class JSONFileHandler(FileHandler):
     def __init__(self, filename="Data/vacancies.json"):
         super().__init__(filename)
 
