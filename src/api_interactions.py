@@ -43,6 +43,7 @@ class hh_API(JobAPI):
         return [
             {
                 'name': vacancy['name'],
+                'company': vacancy['employer']['name'],
                 'url': vacancy['alternate_url'],
                 'salary': vacancy.get('salary')
             }
@@ -55,6 +56,7 @@ if __name__ == "__main__":
     try:
         vacancies = hh_api.get_vacancies("Python", 10)
         for vacancy in vacancies:
-            print(f"Название: {vacancy['name']}, Ссылка: {vacancy['url']}, Зарплата: {vacancy['salary']}")
+            print(f"Название вакансии: {vacancy['name']}, Работодатель: {vacancy['company']} Ссылка: {vacancy['url']}, "
+                  f"Зарплата: {vacancy['salary']}")
     except Exception as e:
         print(f"Произошла ошибка: {e}")
