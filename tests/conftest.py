@@ -27,7 +27,7 @@ def vacancy3():
 
 @pytest.fixture
 def vacancy4():
-    return Vacancy(4, 'Trulyalya Official', 150000, "http://example.com")
+    return Vacancy(4, 123,'Trulyalya Official', 150000, "http://example.com")
 
 
 @pytest.fixture
