@@ -107,7 +107,7 @@ def user_interaction():
                         'company': vacancy['employer']['name'],
                         'url': vacancy['alternate_url'],
                         'salary': vacancy.get('salary'),
-                        'id': vacancy.get('id')  # Предполагается, что у вакансии есть уникальный идентификатор
+                        'id': vacancy.get('id')
                     }
                     for vacancy in vacancies_data
                 ]
